@@ -36,7 +36,8 @@ class c_system extends base_c {
 				}
 			}
 			$constant = file_get_contents(ROOT_APP."/base/Constant.class.php");
-			$system_name = base_Utils::getStr($_POST['system_name']);
+
+            $system_name = base_Utils::getStr($_POST['system_name']);
 			if($system_name){
 				$constant = str_replace(base_Constant::DEFAULT_TITLE, $system_name, $constant);
 			}
@@ -51,10 +52,10 @@ class c_system extends base_c {
 			}else{
 				$constant = str_replace("TRUE", "FALSE", $constant);
 			}
-			$f = @fopen(ROOT_APP."/base/Constant.class.php", "r+");
-			if($f){
-				fwrite($f, $constant);
-				fclose($f);
+
+            $filename = ROOT_APP."/base/Constant.class.php";
+            if (is_writable($filename)){
+                file_put_contents($filename, $constant);
 			}else{
 				$this->ShowMsg("没有写权限");
 			}
