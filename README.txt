@@ -1,5 +1,5 @@
 安装说明1
-访问 htttp://www.你的网站.com/install/index.php文件 按照提示操作即可完成安装！
+访问 http://www.你的网站.com/install/index.php文件 按照提示操作即可完成安装！
 特别注意 如果你的安装目录不是网站的根目录
 请在 app/base/Constant.class.php中修改
 const ROOT_DIR = "";
