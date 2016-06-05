@@ -23,26 +23,53 @@ class c_category extends base_c {
 		$page = $url ['page'] ? $url ['page'] : 1;
 		$categoryObj = new m_category ();
 		$this->params ['category'] = $categoryObj->getOrderCate ( '|__' );
+
+		if (isset($url['ac']) && $url['ac'] == "del") {
+			$this->params ['ac'] = $url ['ac'];
+			if (isset($url['catid'])) {
+				$data['cat_id'] = $url['catid'];
+				if ($categoryObj->deleteOne ( $data)) {
+					$this->ShowMsg ( "删除成功！", $this->createUrl ( "/category/index" ), '', 1 );
+				}
+				$this->ShowMsg ( "删除失败" . $categoryObj->getError () );
+			}
+		}
+
 		return $this->render ( 'category/index.html', $this->params );
 	}
 	
 	function pagecategory($inPath) {
 		$url = $this->getUrlParams ( $inPath );
 		$catid = ( int ) $url ['catid'] > 0 ? ( int ) $url ['catid'] : ( int ) $_POST ['cat_id'];
+		$url ['ac'] = $url ['ac'] ? $url ['ac'] : "add";
 		$categoryObj = new m_category ( $catid );
 		$this->params ['categorylist'] = $categoryObj->getOrderCate ( '&nbsp;&nbsp;&nbsp;&nbsp;' );
+		$this->params ['ac'] = $url ['ac'];
 		if ($_POST) {
 			$post = base_Utils::shtmlspecialchars ( $_POST );
-			if ($catid) {
-				if ($categoryObj->create ( $post )) {
-					$this->ShowMsg ( "修改成功！", $this->createUrl ( "/category/index" ), '', 1 );
+			switch ($url ['ac']) {
+			case "edit" :
+				if ($catid) {
+					if ($categoryObj->create ( $post )) {
+						$this->ShowMsg ( "修改成功！", $this->createUrl ( "/category/index" ), '', 1 );
+					}
+					$this->ShowMsg ( "修改失败" . $categoryObj->getError () );
 				}
-				$this->ShowMsg ( "修改失败" . $categoryObj->getError () );
-			} else {
+				break;
+			case "add" :
 				if ($categoryObj->create ( $post )) {
 					$this->ShowMsg ( "添加成功！", $this->createUrl ( "/category/index" ), '', 1 );
 				}
 				$this->ShowMsg ( "添加失败，原因：" . $categoryObj->getError () );
+				break;
+			case "del" :
+				if ($catid) {
+					if ($categoryObj->deleteOne ( $post )) {
+						$this->ShowMsg ( "删除成功！", $this->createUrl ( "/category/index" ), '', 1 );
+					}
+					$this->ShowMsg ( "删除失败" . $categoryObj->getError () );
+				}
+				break;
 			}
 		} else {
 			if ($catid) {

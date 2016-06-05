@@ -16,7 +16,7 @@
       <div class="content-box-content">
         <div class="tab-content default-tab" id="tab1">
         	<div class="form">
-              <form action="{/get_url rule='/category/category'/}" method="post" id="js-form">
+              <form action="{/get_url rule='/category/category' data="ac=$ac"/}" method="post" id="js-form">
                 <fieldset class="clearfix">
                 <input type="hidden" value="{/$category.cat_id/}" name="cat_id" />
                       <p><label>所属分类：</label>
@@ -35,7 +35,7 @@
                         </p>
                     </ul>
                   <dt>
-                    <input type="submit" name="" id="button" class="button" value="{/if $category.cat_id/}编辑{/else/}添加{//if/}" />
+				  <input type="submit" name="" id="button" class="button" value="{/if $category.cat_id/} {/if $ac eq edit/}编辑{/else/}删除{//if/} {/else/}添加{//if/}" />
                   </dt>
                 </fieldset>
               </form>

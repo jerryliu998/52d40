@@ -49,9 +49,35 @@ class m_category extends base_m {
 		$this->set ( "is_show", $data ['is_show'] );
 		$this->set ( "cat_name", $data ['cat_name'] );
 		$rs = $this->save ( $data ['cat_id'] );
-		if ($rs)
+		if ($rs) {
+			$logObj = base_mAPI::get ( "m_log" );
+			$logObj->create ( 0, "添加 cat_name 为 {$data ['cat_name']} 的记录", 3 );
 			return $rs;
+		}
 		$this->setError ( 0, "保存数据失败" . $this->getError () );
 		return false;
+	}
+
+	public function deleteOne($data) {
+		$id = $data ['cat_id'];
+		$this->setPkid ( $id );
+		$rs = $this->get ();
+		if (! $rs) {
+			$this->setError ( 0, " 指定删除的分类不存在" );
+			return false;
+		}
+		$rs = $this->selectOne ( "pid = '{$id}'" );
+		if ($rs) {
+			$this->setError ( 0, " 需要先删除当前分类的所有子分类" );
+			return false;
+		}
+		if ($this->del()) {
+			$logObj = base_mAPI::get ( "m_log" );
+			$logObj->create ( 0, "删除 cat_id 为 {$id} 的记录", 4 );
+			return true;
+		} else {
+			$this->setError ( 0, "删除记录失败！" );
+			return false;
+		}
 	}
 }
