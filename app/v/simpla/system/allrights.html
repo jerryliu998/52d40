@@ -80,14 +80,20 @@
 </ul>
 </div>
 <div class="rights">
-<p><a href="javascript:void(0)">销售管理权限</a></p>
+<p><a href="javascript:void(0)">订单管理权限</a></p>
 <ul>
   <li>
-    <input type="checkbox" name="sales[]" value="销售列表:index" {/if $action.menu.sales.index/}checked="checked"{//if/} />
-    销售列表</li>
+    <input type="checkbox" name="sales[]" value="订单列表:index" {/if $action.menu.sales.index/}checked="checked"{//if/} />
+    订单列表</li>
   <li>
-    <input type="checkbox" name="sales[]" value="商品出库:sales" {/if $action.menu.sales.sales/}checked="checked"{//if/} />
-    商品出库</li>
+    <input type="checkbox" name="sales[]" value="预约订单:booklist" {/if $action.menu.sales.booklist/}checked="checked"{//if/} />
+    预约订单</li>
+    <li>
+    <input type="checkbox" name="sales[]" value="商品订单:goodslist" {/if $action.menu.sales.goodslist/}checked="checked"{//if/} />
+    商品订单</li>
+    <li>
+        <input type="checkbox" name="sales[]" value="订单核销:verify" {/if $action.menu.sales.verify/}checked="checked"{//if/} />
+        订单核销</li>
   <li>
     <input type="checkbox" name="sales[]" value="商品退货:return" {/if $action.menu.sales.return/}checked="checked"{//if/} />
     商品退货</li>

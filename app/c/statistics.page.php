@@ -24,11 +24,13 @@ class c_statistics extends base_c {
 			$condi = '';
 			$start = base_Utils::getStr ( $_POST ['start'] );
 			$end = base_Utils::getStr ( $_POST ['end'] );
+
 			if ($start) {
 				$condi = "dateymd>='{$start}'";
 				$condi .= $end ? " and dateymd<='{$end}'" : " and dateymd<='{$ymd}'";
 			}
-			switch ($type) {
+
+            switch ($type) {
 				case 1 :
 					$this->params ['title'] = "销售统计(不含退款)";
 					$rs = $salesObj->select ( $condi, "dateymd,sum(num*price-refund_amount) as money", "group by dateymd" )->items;
@@ -45,6 +47,7 @@ class c_statistics extends base_c {
 				case 4 :
 					break;
 			}
+
 			$this->params ['start'] = $start;
 			$this->params ['end'] = $end;
 			$this->params ['type'] = $type;

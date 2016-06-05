@@ -33,7 +33,7 @@ class m_member extends base_m {
 				}
 			}
 		}
-		$regionObj = new m_region ();
+        $regionObj = new m_region ();
 		if ($data ['prov_id']) {
 			$rs = $regionObj->get ( "region_id = {$data['prov_id']}", 'region_name' );
 			$this->set ( 'prov_name', $rs ['region_name'] );

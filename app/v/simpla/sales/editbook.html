@@ -1,0 +1,108 @@
+{/include file="simpla/common/header.html"/}
+{/include file="simpla/common/left.html"/}
+<div id="main-content">
+  <h2>欢迎您 {/$_adminname/}</h2>
+  <p id="page-intro">预约订单编辑。</p>
+  <div class="clear"></div>
+  <div class="content-box">
+    <div class="content-box-header">
+      <h3>预约订单编辑</h3>
+
+        <div class="clear"></div>
+    </div>
+    <div class="content-box-content">
+      <div class="tab-content default-tab" id="tab1">
+        <div class="form">
+		          <form id="js-form">
+
+            <fieldset class="clearfix">
+                <p>
+                    <label class="w80"><font class="red"> * </font>商品名称：</label>
+                <span>
+                  <input type="text" value="{/$sale_info.goods_name/}" class="text-input min-input" name="goods_name" disabled="disabled"/>
+                </span>
+                </p>
+
+                <p>
+                  <label class="w80"><font class="red"> * </font>数量：</label>
+                  <span>
+                  <input type="text" value="{/$sale_info.num/}" class="text-input min-input" name="num" disabled="disabled"/>
+                  </span> <small></small></p>
+				  
+				<p>
+                <label class="w80"><font class="red"> * </font>手机号：</label>
+                  <span>
+                  <input type="text" value="{/$sale_info.membercardid/}" class="text-input min-input" name="membercardid" disabled="disabled"/>
+                  </span></p>
+
+                <p>
+                    <label class="w80"><font class="red"> * </font>第三方订单号(来自微店)：</label>
+                  <span>
+                  <input type="text" value="{/$sale_info.third_order_id/}" class="text-input min-input" name="third_order_id" disabled="disabled"/>
+                  </span></p>
+
+            </fieldset>
+			</form>
+        </div>
+        <hr />
+
+        <div class="form">
+          <form action="{/get_url rule='/sales/editbook' data='sid='|cat:$sale_info.sid|cat:'&orderid='|cat:$sale_info.order_id /}" method="post" id="js-form2">
+            <fieldset class="clearfix">
+
+                <p>
+                    <label class="w80"><font class="red"> * </font>儿童姓名：</label>
+                  <span>
+                    <input type="text" class="text-input min-input" name="child_name" value="{/$ext_detail.child_name/}"/>
+                  </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <label class="w80"><font class="red"> * </font>性别：</label>
+                <span>
+                  <input name="sex" type="radio" value="0" {/if $ext_detail.sex eq 0/}checked{//if/}/>&nbsp;男&nbsp;<input name="sex" type="radio" value="1" {/if $ext_detail.sex eq 1/}checked{//if/}/>&nbsp;女&nbsp;
+                </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <label class="w80"><font class="red"> * </font>年龄：</label>
+                  <span>
+                    <input type="text" class="text-input min-input" name="age" value="{/$ext_detail.age/}"/><small>&nbsp;岁</small>
+                  </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <label class="w80"><font class="red"> * </font>体重：</label>
+                  <span>
+                    <input type="text" class="text-input min-input" name="weight" value="{/$ext_detail.weight/}"/><small>&nbsp;kg</small>
+                  </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <label class="w80"><font class="red"> * </font>身高：</label>
+                  <span>
+                    <input type="text" class="text-input min-input" name="height" value="{/$ext_detail.height/}"/><small>&nbsp;cm</small>
+                  </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <label class="w80"><font class="red"> * </font>鞋码：</label>
+                  <span>
+                    <input type="text" class="text-input min-input" name="shoe_size" value="{/$ext_detail.shoe_size/}"/>
+                  </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <label class="w80"><font class="red"> * </font>备注：</label>
+                  <span>
+                    <input type="text" class="text-input" style="width: 400px" name="remark" value="{/$sale_info.remark/}"/>
+                  </span>
+                </p>
+
+
+              <dt>
+                  <input type="hidden" value="1" name="order_type"/>
+                <input type="submit" name="" class="button" id="button" value="确认提交" />
+              </dt>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {/include file="simpla/common/copy.html"/} </div>
+{/include file="simpla/common/footer.html"/}

@@ -1,0 +1,38 @@
+{/include file="simpla/common/header.html"/}
+{/include file="simpla/common/left.html"/}
+<div id="main-content">
+    <h2>欢迎您 {/$_adminname/}</h2>
+    <p id="page-intro">核销。</p>
+    <div class="clear"></div>
+    <div class="content-box">
+      <div class="content-box-header">
+        <h3>核销</h3>
+        <div class="clear"></div>
+      </div>
+      <div class="content-box-content">
+        <div class="tab-content default-tab">
+            <form method="post" action="">
+                <fieldset class="clearfix">
+                    <p>
+                        <label><font class="red"> * </font>手机号：</label>
+                        <span>
+                            <input type="text" value="" class="text-input small-input" name="membercardid" />
+                        </span>
+                    </p>
+                    <p>
+                        <label><font class="red"> * </font>消费码：</label>
+                        <span>
+                            <input type="text" value="" class="text-input small-input" name="verify_code" />
+                        </span>
+                    </p>
+                    <dt>
+                        <input type="submit" name="" class="button" id="button" value="验证" />
+                    </dt>
+                </fieldset>
+            </form>
+        </div>
+      </div>
+    </div>
+    {/include file="simpla/common/copy.html"/}
+  </div>
+{/include file="simpla/common/footer.html"/}

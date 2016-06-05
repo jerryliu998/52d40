@@ -35,7 +35,7 @@
       </li>
 	{//if/}
 	{/if $menu.sales/}
-      <li> <a href="javascript:;" class="nav-top-item {/if $inpath[1] eq "sales"/}current{//if/}">出货管理</a>
+      <li> <a href="javascript:;" class="nav-top-item {/if $inpath[1] eq "sales"/}current{//if/}">订单管理</a>
         <ul>
             {/foreach from=$menu.sales item=items key=k/}
             <li><a href="{/get_url rule='/sales/'/}{/$k/}" class="{/if $inpath[2] eq $k/}current{//if/}">{/$items/}</a></li>

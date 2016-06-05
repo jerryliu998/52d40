@@ -1,0 +1,8 @@
+ALTER TABLE `smpss_sales` ADD `third_order_id` VARCHAR(32) NOT NULL ;
+ALTER TABLE `smpss_sales` ADD `order_type` TINYINT(1) NOT NULL ;
+ALTER TABLE `smpss_sales` ADD `verify_code` VARCHAR(10) NOT NULL ;
+
+ALTER TABLE `smpss_goods` ADD `goods_type` TINYINT(1) NOT NULL ;
+ALTER TABLE `smpss_sales` ADD `ext_detail` VARCHAR(1024) NOT NULL ;
+ALTER TABLE `smpss_sales` ADD `remark` VARCHAR(1024) NOT NULL ;
+ALTER TABLE `smpss_sales` ADD `status` TINYINT(4) NOT NULL ;
