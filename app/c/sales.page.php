@@ -495,6 +495,7 @@ class c_sales extends base_c {
 
         $third_order_id = '0';
         $order_type = 0;
+        $status = base_Constant::ORDER_STATUS_NEW;
         //预约订单
         if ($_POST['order_type'] == 1){
             if (!$_POST['third_order_id'])
@@ -515,12 +516,16 @@ class c_sales extends base_c {
             $ext_detail['weight'] = $_POST['weight'];
             $ext_detail['height'] = $_POST['height'];
             $ext_detail['shoe_size'] = $_POST['shoe_size'];
+
             $ext_detail = json_encode($ext_detail,JSON_UNESCAPED_UNICODE);
+
             $remark = $_POST['remark'];
+            $status = base_Constant::ORDER_STATUS_PAY;
         }
         //商品订单
         else if ($_POST['order_type'] == 2){
             $order_type = 2;
+            $status = base_Constant::ORDER_STATUS_OK;
         }
         //其他订单
         else{
@@ -589,6 +594,7 @@ class c_sales extends base_c {
                 $sales ['order_type'] = $order_type;
                 $sales ['ext_detail'] = $ext_detail;
                 $sales ['remark'] = $remark;
+                $sales ['status'] = $status;
 
                 //生成验证码
                 $verify_code = rand(100000,999999);
@@ -606,8 +612,10 @@ class c_sales extends base_c {
 				$purchaseObj->outStock ( $sales ['goods_id'], $v ['num'], sprintf ( "%01.2f", $sales ['price'] * $v ['num'] ) );
 
                 //给用户发送短信
-                $msg_content = "感谢订购".$v ['goods_name'].",你的验证码是".$sales ['verify_code'];
-                base_Utils::sendMsg($mobile,$msg_content);
+                if ($order_type == base_Constant::ORDER_TYPE_BOOK){
+                    $msg_content = "感谢订购".$v ['goods_name'].",你的验证码是".$sales ['verify_code'];
+                    base_Utils::sendMsg($mobile,$msg_content);
+                }
             }
 			//计算应收金额
 			$real_amount = $out_amount-$mem_amount-$pro_amount;

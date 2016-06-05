@@ -23,4 +23,8 @@ class base_Constant {
     const ORDER_STATUS_CANCEL = 4;
     const ORDER_STATUS_REFUND = 5;
 
+    //订单类型常量
+    const ORDER_TYPE_BOOK = 1;
+    const ORDER_TYPE_GOODS = 2;
+
 }
