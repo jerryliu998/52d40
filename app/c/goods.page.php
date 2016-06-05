@@ -49,6 +49,7 @@ class c_goods extends base_c {
 		$goodsObj = new m_goods($goods_id);
 		if($_POST){
 			$post = base_Utils::shtmlspecialchars ( $_POST );
+			//var_dump($post);exit;
 			if ($goodsObj->create ( $post )) {
 				base_Utils::ssetcookie(array('cat_id'=>$post['cat_id']));
 				$this->ShowMsg ( "操作成功！", $this->createUrl ( "/goods/addgoods" ), 2, 1 );
@@ -58,6 +59,7 @@ class c_goods extends base_c {
 		$categoryObj = new m_category ();
 		$this->params['cat_id'] = (int)$_COOKIE['cat_id'];
 		$this->params['catelist'] = $categoryObj->getOrderCate('&nbsp;&nbsp;&nbsp;&nbsp;');
+		$this->params['goodstype'] = $categoryObj->getGoodsType('&nbsp;&nbsp;&nbsp;&nbsp;');
 		$this->params['goods'] = $goodsObj->selectOne("goods_id={$goods_id}");
 		return $this->render ( 'goods/addgoods.html', $this->params );
 	}

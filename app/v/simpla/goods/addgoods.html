@@ -31,6 +31,17 @@
             {//section/}
                 </select>
                 <span></span> </p>
+				<p>
+                <label><font class="red"> * </font>商品类型：</label>
+                <select id="one" name="goods_type">
+                  <option value="0">选择商品类型</option>
+            {/section name=i loop=$goodstype/}
+                  <option value="{/$goodstype[i].goods_type/}" {/if $goodstype[i].goods_type eq $goods.goods_type/}selected="selected"{//if/}>
+                    {/$goodstype[i].goods_name/}
+                  </option>
+            {//section/}
+                </select>
+                <span></span> </p>
               <p>
                 <label><font class="red"> * </font>商品条形码：</label>
                 <input type="text" value="{/$goods.goods_sn/}" class="text-input small-input" name="goods_sn" id="goods_sn" />

@@ -281,6 +281,7 @@ class base_m {
 	 * 删除记录
 	 */
 	public function delete($condition = "", $params = array('type'=>'main')) {
+		//var_dump($condition);exit;
 		return $this->_db->delete ( $this->tableName (), $condition, $params );
 	}
 	

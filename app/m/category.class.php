@@ -13,6 +13,13 @@ class m_category extends base_m {
 	public function relations() {
 		return array ();
 	}
+	public function getGoodsType($space = '|___') {
+		$listarr = array ();
+		$listarr[] =array("goods_type"=>1,"goods_name"=>"预约");
+		$listarr[] =array("goods_type"=>2,"goods_name"=>"非预约");
+		return $listarr;
+	}
+	
 	public function getOrderCate($space = '|___') {
 		//$this->setCount ( true );
 		//$this->setPage ( $page );

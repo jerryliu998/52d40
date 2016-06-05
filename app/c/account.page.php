@@ -69,6 +69,22 @@ class c_account extends base_c  {
 		return $this->render ( 'account/addaccount.html', $this->params );
 	}
 	
+	function pagedelaccount($inPath) {
+		$url = $this->getUrlParams ( $inPath );
+		$admin_name = $url ['name'];
+		//var_dump($admin_name );exit();
+		$adminObj = new m_admin ();
+		if ($adminObj->delete ( "admin_name = '{$admin_name}'")) {
+			$this->ShowMsg ( '删除成功', $this->createUrl ( '/account/index' ), '', '1' );
+		}
+
+		$this->ShowMsg ( '删除出错！原因：' . $adminObj->getError () );
+
+		$groupObj = new m_group ();
+		$this->params ['group'] = $groupObj->select ()->items;
+		return $this->render ( 'account/addaccount.html', $this->params );
+	}
+	
 	function pagemodifypwd($inPath) {
 		$admin_id = ( int ) $_COOKIE ['admin_id'];
 		if ($_POST) {
