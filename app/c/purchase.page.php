@@ -24,13 +24,15 @@ class c_purchase extends base_c {
 		$purchaseObj = new m_purchase ();
 		$condition = "isdel = 0";
 		if ($_POST) {
-			$key = base_Utils::getStr ( $_POST ['key'] );
 			$cat_id = ( int ) $_POST ['cat_id'];
-			$condition .= " and goods_name like '%{$key}%' or goods_sn like '%{$key}%'";
 			if ($cat_id) {
 				$condition .= " and cat_id = {$cat_id}";
+				$this->params['cat_id'] = $cat_id;
 			}
+
+			$key = base_Utils::getStr ( $_POST ['key'] );
 			$this->params ['key'] = $key;
+			$condition .= " and (goods_name like '%{$key}%' or goods_sn like '%{$key}%')";
 		}
 		$purchaseObj->setCount ( true );
 		$purchaseObj->setPage ( $page );
