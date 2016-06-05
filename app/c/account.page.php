@@ -1,10 +1,10 @@
-<?php
+﻿<?php
 /**
  * 帐号管理
  * @author 齐迹  email:smpss2012@gmail.com
  *
  */
-class c_account extends base_c {
+class c_account extends base_c  {
 	
 	function __construct($inPath) {
 		parent::__construct ();
