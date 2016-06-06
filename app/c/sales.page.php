@@ -116,6 +116,23 @@ class c_sales extends base_c {
             $this->ShowMsg ( "操作成功！", $this->createUrl ( "/sales/booklist" ), 1, 1 );
         }
 
+        if ($url ['ac'] == "sendcode") {
+            if($url['sid'] && $url['orderid']){
+                $sale_info = $saleObj->select ( "sid={$url['sid']} and order_id={$url['orderid']}" )->items;
+                if (count($sale_info) != 1)
+                    $this->ShowMsg ( "该订单不存在！" );
+
+                if ($sale_info[0]['order_type'] == base_Constant::ORDER_TYPE_BOOK){
+                    $msg_content = "感谢订购".$sale_info[0]['goods_name'].",您的验证码是".$sale_info[0]['verify_code'];
+                    base_Utils::sendMsg($sale_info[0]['membercardid'],$msg_content);
+                }
+            }
+            else
+                $this->ShowMsg("缺少参数！");
+
+            $this->ShowMsg ( "发送成功！", $this->createUrl ( "/sales/booklist" ), 1, 1 );
+        }
+
         $saleObj->setCount ( true );
         $saleObj->setPage ( $page );
         $saleObj->setLimit ( base_Constant::PAGE_SIZE );
@@ -392,7 +409,7 @@ class c_sales extends base_c {
 
             $ret = $saleObj->update ( "sid={$url['sid']} and order_id='{$url['orderid']}'", "ext_detail='{$ext_detail}',remark='{$remark}'" );
 
-            if ($ret)
+            if ($ret>=0)
                 $this->ShowMsg ( "操作成功！", $this->createUrl ( "/sales/booklist" ), 1, 1 );
             else
                 $this->ShowMsg("预约订单编辑失败！");
@@ -492,6 +509,7 @@ class c_sales extends base_c {
         $saleObj = new m_sales ();
         $sales = $mem_rs = array ();
         $purchaseObj = new m_purchase ();
+        $url = $this->getUrlParams ( $inPath );
 
         $third_order_id = '0';
         $order_type = 0;
@@ -529,10 +547,10 @@ class c_sales extends base_c {
         }
         //其他订单
         else{
-            $this->ShowMsg("订单类型出错！");
+            if ($url['ac']!='p')
+                $this->ShowMsg("订单类型出错！");
         }
 
-		$url = $this->getUrlParams ( $inPath );
 		$order_id = $url['oid'];
 		session_start ();
 		$tempsales = new m_tempsales();
@@ -613,7 +631,7 @@ class c_sales extends base_c {
 
                 //给用户发送短信
                 if ($order_type == base_Constant::ORDER_TYPE_BOOK){
-                    $msg_content = "感谢订购".$v ['goods_name'].",你的验证码是".$sales ['verify_code'];
+                    $msg_content = "感谢订购".$v ['goods_name'].",您的验证码是".$sales ['verify_code'];
                     base_Utils::sendMsg($mobile,$msg_content);
                 }
             }
