@@ -17,7 +17,7 @@
     <div class="content-box-content">
       <div class="tab-content default-tab" id="tab1">
         <div class="form">
-          <form id="js-form" method="post" action="{/get_url rule='/sales/index'/}">
+          <form id="js-form" method="post" action="{/get_url rule='/sales/print'/}">
             <fieldset class="clearfix">
               <p>开始时间： <span>
                 <input type="text" value="{/$stime/}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input min-input" name="stime" />
@@ -56,8 +56,9 @@
             <td>{/$sales[i].allprice/}</td>
             <td>{/$sales[i].discount/}</td>
             <td>{/$sales[i].refund/}</td>
-            <td>{/$sales[i].dateymd/}</td>
-            <td><a href="{/get_url rule="/sales/out" data="ac=p&oid="|cat:$sales[i].order_id/}">打印</a></td>
+            <td>{/$sales[i].dateline|date_format:"%Y-%m-%d %H:%M:%S"/}</td>
+
+              <td><a href="{/get_url rule="/sales/out" data="ac=p&oid="|cat:$sales[i].order_id/}">打印</a></td>
           </tr>
           {/sectionelse/}
           <tr>

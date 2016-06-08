@@ -698,7 +698,7 @@ class c_sales extends base_c {
 		$saleObj->setCount ( true );
 		$saleObj->setPage ( $page );
 		$saleObj->setLimit ( base_Constant::PAGE_SIZE );
-		$rs = $saleObj->select ( $condi, "order_id,sum(price*num) as allprice,dateymd,sum(p_discount+m_discount) as discount,sum(refund_amount) as refund", "group by order_id", "order by sid desc" );
+		$rs = $saleObj->select ( $condi, "order_id,sum(price*num) as allprice,dateymd,dateline,sum(p_discount+m_discount) as discount,sum(refund_amount) as refund", "group by order_id", "order by sid desc" );
 		$this->params ['sales'] = $rs->items;
 		$this->params ['key'] = $key;
 		$this->params ['stime'] = $stime;
