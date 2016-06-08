@@ -1,41 +1,70 @@
 {/include file="simpla/common/header.html"/}
 {/include file="simpla/common/left.html"/}
+<style type="text/css">
+  @media print {
+    .noprint { display: none;color:green }
+  }
+</style>
 <div id="main-content">
-  <h2>欢迎您 {/$_adminname/}</h2>
-  <p id="page-intro">打印小票。</p>
-  <div class="clear"></div>
+  <h2 class="noprint">欢迎您 {/$_adminname/}</h2>
+  <p id="page-intro" class="noprint">打印小票。</p>
+  <div class="clear noprint"></div>
+
   <div class="content-box">
+
     <div class="content-box-header">
       <h3>打印小票</h3>
       <div class="clear"></div>
     </div>
+
     <div class="content-box-content">
       <div class="tab-content default-tab" id="tab1">
+        <!--startprint1-->
         <table width="400">
-          <tr>
+          <tr style="line-height: 32px;">
             <td colspan="3">订单号：{/$order_id/} 购买时间：{/$dateline|date_format:"%Y-%m-%d %H:%M:%S"/}</td>
           </tr>
-          <tr>
+          <tr style="line-height: 32px;">
             <th>商品名称</th>
             <th>数量</th>
             <th>总价</th>
           </tr>
           {/section name=i loop=$goods/}
-          <tr>
-            <td>{/$goods[i].goods_name/}</td>
+          <tr style="line-height: 32px;">
+            <td >{/$goods[i].goods_name/}</td>
             <td>{/$goods[i].num/}</td>
             <td>{/$goods[i].out_price*$goods[i].num/}</td>
           </tr>
           {//section/}
-          <tr>
-            <td colspan="3" class="alt">总价：{/$out_amount/}元，优惠：{/if $mem_amount gt 0/}{/$mem_amount/}元{/elseif $pro_amount gt 0/}{/$pro_amount/}元{/else/}无{//if/}。实收：{/$real_amount/}元</td>
+          <tr style="line-height: 32px;">
+            <td colspan="3">
+              天使：<input style="border: none;border-bottom: 1px solid #ccc; background: transparent" type="text" name="" value="" />
+            </td>
           </tr>
-          <tr>
-            <td colspan="5"><input name="打印" type="button" class="button" value="打印" /></td>
+          <tr style="line-height: 32px;">
+            <td colspan="3">
+              摄影师：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+            </td>
+          </tr>
+          <tr style="line-height: 32px;">
+            <td colspan="3">
+              魔法师：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+            </td>
+          </tr>
+          <tr style="line-height: 32px;">
+            <td colspan="3" class="alt" style="font-weight: bold">总价：{/$out_amount/}元，优惠：{/if $mem_amount gt 0/}{/$mem_amount/}元{/elseif $pro_amount gt 0/}{/$pro_amount/}元{/else/}无{//if/}。实收：{/$real_amount/}元</td>
           </tr>
         </table>
+
+        <!--endprint1-->
+
+        <input style="margin-top: 20px;" name="打印" type="button" class="button" value="打印" onClick="preview(1)" />
+
       </div>
     </div>
   </div>
   {/include file="simpla/common/copy.html"/} </div>
-{/include file="simpla/common/footer.html"/} 
+{/include file="simpla/common/footer.html"/}
+
+<script type="text/javascript" src="{/$root_dir/}/assets/js/g.js"></script>
+<script type="text/javascript" src="{/$root_dir/}/assets/js/region.js"></script>
