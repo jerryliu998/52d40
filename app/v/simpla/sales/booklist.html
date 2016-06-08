@@ -67,7 +67,7 @@
             <td>{/$sales[i].num/}</td>
             <td>{/$sales[i].price*$sales[i].num/}</td>
             <td>{/$sales[i].status_text/}</td>
-            <td>{/$sales[i].dateymd/}</td>
+            <td>{/$sales[i].dateline|date_format:"%Y-%m-%d %H:%M:%S"/}</td>
             <td>
                 <a onclick="return(confirm('确认取消订单?'))" href="{/get_url rule='/sales/booklist' data='ac=cancel&sid='|cat:$sales[i].sid|cat:'&orderid='|cat:$sales[i].order_id/}" title="取消"><img src="{/$root_dir/}/assets/simpla/images/icons/cross.png" alt="取消" /></a>
                 <a href="{/get_url rule='/sales/editbook' data='sid='|cat:$sales[i].sid|cat:'&orderid='|cat:$sales[i].order_id/}" title="修改"><img src="{/$root_dir/}/assets/simpla/images/icons/pencil.png" alt="修改" /></a>

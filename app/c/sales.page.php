@@ -547,7 +547,7 @@ class c_sales extends base_c {
         }
         //其他订单
         else{
-            if ($url['ac']!='p')
+            if ($url['ac']!='p' && $url['ac']!='verify')
                 $this->ShowMsg("订单类型出错！");
         }
 
@@ -643,7 +643,7 @@ class c_sales extends base_c {
 			$tempsales->delOrder($order_id);//清除临时销售记录
 		}
 		$goods = $saleObj->select ( "order_id={$order_id}" )->items;
-		if($url['ac']=='p'){//独立打印
+		if($url['ac']=='p' || $url['ac']=='verify'){//独立打印
 			if(!is_array($goods)){
 				$this->ShowMsg ( "订单中没有任何商品！" );
 			}
@@ -663,7 +663,14 @@ class c_sales extends base_c {
 		$this->params ['mem_amount'] = $mem_amount;
 		$this->params ['dateline'] = $dateline;
 		$_SESSION ['order_id'] = "";
-		return $this->render ( 'sales/out.html', $this->params );
+
+        if ($url['ac']=='verify'){
+            $this->params ['membercardid'] = $url['membercardid'];
+            $this->params ['verifycode'] = $url['verifycode'];
+            return $this->render ( 'sales/verifyconfirm.html', $this->params );
+        }
+        else
+            return $this->render ( 'sales/out.html', $this->params );
 	}
 	/**
 	 * 打印小票
@@ -701,9 +708,9 @@ class c_sales extends base_c {
 	}
 
     /*
-     * 订单核销
+     * 订单核销验证
      */
-    function pageverify($inPath){
+    function pageverify(){
         $condi = '';
         if ($_POST) {
             $membercardid = base_Utils::getStr ( $_POST ['membercardid'] );
@@ -717,13 +724,46 @@ class c_sales extends base_c {
             if ($sale_info[0]['status'] != base_Constant::ORDER_STATUS_PAY)
                 $this->ShowMsg ( "该订单已经核销！" );
 
-            $status = base_Constant::ORDER_STATUS_OK;
-            $ret = $saleObj->update ( "membercardid={$membercardid} and verify_code={$verify_code}", "status={$status}" );
 
-            $this->ShowMsg ( "操作成功！", $this->createUrl ( "/sales/verify" ), 1, 1 );
+            $this->redirect ( $this->createUrl ( "/sales/out",array("ac"=>"verify","oid"=>$sale_info[0]['order_id'],"membercardid"=>$sale_info[0]['membercardid'],"verifycode"=>$sale_info[0]['verify_code']) ) );
+
 
         }
         return $this->render ( 'sales/verify.html', $this->params );
+    }
+
+    /*
+     * 订单核销
+     */
+    function pageverifyconfirm($inPath){
+        date_default_timezone_set('Asia/Shanghai');
+
+        $url = $this->getUrlParams ( $inPath );
+
+        if($url['membercardid'] && $url['verifycode']){
+            $membercardid = base_Utils::getStr ( $url ['membercardid'] );
+            $verify_code = base_Utils::getStr ( $url ['verifycode'] );
+
+            $saleObj = new m_sales ();
+            $sale_info = $saleObj->select ( "membercardid={$membercardid} and verify_code={$verify_code}" )->items;
+            if (count($sale_info) != 1)
+                $this->ShowMsg ( "该订单不存在！" );
+
+            if ($sale_info[0]['status'] != base_Constant::ORDER_STATUS_PAY)
+                $this->ShowMsg ( "该订单已经核销！" );
+
+
+            $status = base_Constant::ORDER_STATUS_OK;
+            $ret = $saleObj->update ( "membercardid={$membercardid} and verify_code={$verify_code}", "status={$status}" );
+
+            $msg_content = "您订购的".$sale_info[0]['goods_name']."于".date('Y-m-d H:i:s',time())."核销成功";
+            base_Utils::sendMsg($sale_info[0]['membercardid'],$msg_content);
+
+            $this->ShowMsg ( "核销成功！", $this->createUrl ( "/sales/booklist" ), 1, 1 );
+        }
+        else{
+            $this->ShowMsg ( "缺少参数！" );
+        }
     }
 
 	/**

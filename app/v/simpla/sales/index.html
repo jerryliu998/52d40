@@ -66,7 +66,7 @@
             <td>{/$sales[i].price*$sales[i].num/}</td>
             <td>{/if $sales[i].p_discount gt 0/}{/$sales[i].p_discount /}元{/else/}无{//if/}/{/if $sales[i].m_discount gt 0/}{/$sales[i].m_discount /}元{/else/}无{//if/}</td>
               <td>{/$sales[i].status_text/}</td>
-            <td>{/$sales[i].dateymd/}</td>
+              <td>{/$sales[i].dateline|date_format:"%Y-%m-%d %H:%M:%S"/}</td>
           </tr>
           {/sectionelse/}
           <tr>
