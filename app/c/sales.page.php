@@ -604,7 +604,7 @@ class c_sales extends base_c {
 					$sales ['m_discount'] = ($v ['out_price'] - $v ['p_discount']) * (100 - $mem_rs ['discount']) / 100; //会员+促销优惠
 					$sales ['m_discount'] = sprintf ( "%01.2f", $sales ['m_discount'] );
 					$sales ['price'] = $sales ['out_price'] - $sales ['m_discount'];
-					$mem_amount += sprintf ( "%01.2f", $v ['out_price'] * $v ['num'] - $sales ['m_discount'] * $v ['num'] ); //会员+促销总价
+					$mem_amount += sprintf ( "%01.2f", $sales ['m_discount'] * $v ['num'] ); //会员+促销总价
 				}
 				$sales ['dateymd'] = date ( "Y-m-d", time () );
 				$sales ['dateline'] = time ();
@@ -624,7 +624,7 @@ class c_sales extends base_c {
                 }
                 $sales ['verify_code'] = $verify_code;
 
-				if (! $saleObj->insert ( $sales )) {
+                if (! $saleObj->insert ( $sales )) {
 					$this->ShowMsg ( "添加销售记录错误！" . $saleObj->getError () );
 				}
 				$purchaseObj->outStock ( $sales ['goods_id'], $v ['num'], sprintf ( "%01.2f", $sales ['price'] * $v ['num'] ) );
@@ -643,6 +643,7 @@ class c_sales extends base_c {
 			$tempsales->delOrder($order_id);//清除临时销售记录
 		}
 		$goods = $saleObj->select ( "order_id={$order_id}" )->items;
+
 		if($url['ac']=='p' || $url['ac']=='verify'){//独立打印
 			if(!is_array($goods)){
 				$this->ShowMsg ( "订单中没有任何商品！" );
