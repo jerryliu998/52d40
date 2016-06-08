@@ -28,7 +28,7 @@ class c_main extends base_c {
 				$modelAdmin = new m_admin();
 				$loginInfo = $modelAdmin->checkLogin($_POST['username'],$_POST['pwd'],(int)$_POST['timeout']);
 				if($loginInfo){
-					$this->redirect($this->createUrl('/'));
+					$this->redirect($this->createUrl('/system/index'));
 				}else{
 					$this->ShowMsg("用户名或者密码错误！");
 				}
