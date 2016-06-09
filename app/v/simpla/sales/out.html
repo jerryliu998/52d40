@@ -20,7 +20,7 @@
     <div class="content-box-content">
       <div class="tab-content default-tab" id="tab1">
         <!--startprint1-->
-        <table width="100%" height="400px">
+        <table width="100%" height="100%">
           <tr style="line-height: 32px;">
             <td colspan="3">订单号：{/$order_id/} 购买时间：{/$dateline|date_format:"%Y-%m-%d %H:%M:%S"/}</td>
           </tr>
@@ -36,39 +36,46 @@
             <td>{/$goods[i].out_price*$goods[i].num/}</td>
           </tr>
           {//section/}
+            {/if $order_type eq 1/}
           <tr style="line-height: 32px;">
-            <td colspan="3">
-              姓名：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+            <td >
+              姓名：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.child_name/}</label>
             </td>
+              <td >
+                  性别：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.sex/}</label>
+              </td>
+              <td >
+                  生日：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.birth/}</label>
+              </td>
+
           </tr>
+
+            <tr style="line-height: 32px;">
+                <td colspan="3">
+                    预约时间：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.book_time/}</label>
+                </td>
+            </tr>
+
           <tr style="line-height: 32px;">
             <td>
-              身高：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+              身高：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.height/}cm</label>
             </td>
             <td>
-              体重：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+              体重：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.weight/}kg</label>
             </td>
             <td>
-              鞋码：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+              鞋码：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.shoe_size/}</label>
             </td>
           </tr>
+            {//if/}
           <tr style="line-height: 32px;">
-            <td colspan="3">
-              预约时间：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
-            </td>
-          </tr>
-          <tr style="line-height: 32px;">
-            <td colspan="3">
-              生日：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
-            </td>
-          </tr>
-          <tr style="line-height: 32px;">
-            <td colspan="3" class="alt" style="font-weight: bold">总价：{/$out_amount/}元，优惠：{/if $mem_amount gt 0/}{/$mem_amount/}元{/elseif $pro_amount gt 0/}{/$pro_amount/}元{/else/}无{//if/}。实收：{/$real_amount/}元</td>
+            <td class="alt" style="font-weight: bold">总价：{/$out_amount/}元，优惠：{/if $mem_amount gt 0/}{/$mem_amount/}元{/elseif $pro_amount gt 0/}{/$pro_amount/}元{/else/}无{//if/}。实收：{/$real_amount/}元</td>
+              <td colspan="2" class="alt" style="font-weight: bold">收银员：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" /></td>
           </tr>
         </table>
 
         <div>
-          <span><img style="width: 200px;height:200px;" src="{/$root_dir/}/assets/simpla/images/wechat.jpg" alt="微信支付" /></span>
+          <span style="padding-right: 70px;"><img style="width: 200px;height:200px;" src="{/$root_dir/}/assets/simpla/images/wechat.jpg" alt="微信支付" /></span>
           <span><img style="width: 200px;height:200px;" src="{/$root_dir/}/assets/simpla/images/zhifubao.jpg" alt="支付宝支付" /></span>
         </div>
 

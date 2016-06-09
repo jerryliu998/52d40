@@ -49,6 +49,16 @@
         <div class="form">
           <form action="{/get_url rule='/sales/editbook' data='sid='|cat:$sale_info.sid|cat:'&orderid='|cat:$sale_info.order_id /}" method="post" id="js-form2">
             <fieldset class="clearfix">
+                <p>
+                    开始时间：
+                    <span>
+                        <input style="width: 150px" type="text" value="{/$ext_detail.stime|date_format:'%Y-%m-%d %H:%M:%S'/}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="stime" />
+                    </span>&nbsp;
+                    结束时间：
+                    <span>
+                        <input style="width: 150px" type="text" value="{/$ext_detail.etime|date_format:'%Y-%m-%d %H:%M:%S'/}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="etime" />
+                    </span>
+                </p>
 
                 <p>
                     <label class="w80"><font class="red"> * </font>儿童姓名：</label>
@@ -63,9 +73,9 @@
                 </span>
                 </p>
                 <p style="width: 50%;float: left">
-                    <label class="w80"><font class="red"> * </font>年龄：</label>
+                    <label class="w80"><font class="red"> * </font>出生日期：</label>
                   <span>
-                    <input type="text" class="text-input min-input" name="age" value="{/$ext_detail.age/}"/><small>&nbsp;岁</small>
+                     <input type="text" value="{/$ext_detail.birth/}" style="width: 120px" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input" name="birth" />
                   </span>
                 </p>
                 <p style="width: 50%;float: left">

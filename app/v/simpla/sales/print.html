@@ -41,6 +41,7 @@
           <thead>
             <tr>
               <th>订单号</th>
+                <th>会员</th>
               <th>销售合计</th>
               <th>优惠合计</th>
               <th>退款合计</th>
@@ -57,6 +58,7 @@
           {/section name=i loop=$sales/}
           <tr>
             <td>{/$sales[i].order_id/}</td>
+              <td>{/$sales[i].membercardid/}</td>
             <td>{/$sales[i].allprice/}</td>
             <td>{/$sales[i].discount/}</td>
             <td>{/$sales[i].refund/}</td>

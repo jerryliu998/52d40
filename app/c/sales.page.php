@@ -396,18 +396,23 @@ class c_sales extends base_c {
             $this->ShowMsg ( "该订单不存在！" );
 
         if ($_POST){
+            if ($_POST['stime'] > $_POST['etime'])
+                $this->ShowMsg ( "开始时间不能大于结束时间！" );
+
             //拼接额外信息
             $ext_detail = array();
             $ext_detail['child_name'] = $_POST['child_name'];
             $ext_detail['sex'] = $_POST['sex'];
-            $ext_detail['age'] = $_POST['age'];
+            $ext_detail['birth'] = $_POST['birth'];
             $ext_detail['weight'] = $_POST['weight'];
             $ext_detail['height'] = $_POST['height'];
             $ext_detail['shoe_size'] = $_POST['shoe_size'];
             $ext_detail = json_encode($ext_detail,JSON_UNESCAPED_UNICODE);
             $remark = $_POST['remark'];
+            $stime = strtotime($_POST['stime']);
+            $etime = strtotime($_POST['etime']);
 
-            $ret = $saleObj->update ( "sid={$url['sid']} and order_id='{$url['orderid']}'", "ext_detail='{$ext_detail}',remark='{$remark}'" );
+            $ret = $saleObj->update ( "sid={$url['sid']} and order_id='{$url['orderid']}'", "ext_detail='{$ext_detail}',remark='{$remark}',stime='{$stime}',etime='{$etime}'" );
 
             if ($ret>=0)
                 $this->ShowMsg ( "操作成功！", $this->createUrl ( "/sales/booklist" ), 1, 1 );
@@ -418,6 +423,9 @@ class c_sales extends base_c {
         $this->params ['sale_info'] = $sale_info[0];
         //获取额外信息
         $ext_detail = json_decode($sale_info[0]['ext_detail'],true);
+        $ext_detail['stime'] = $sale_info[0]['stime'];
+        $ext_detail['etime'] = $sale_info[0]['etime'];
+
         $this->params ['ext_detail'] = $ext_detail;
 
         return $this->render ( 'sales/editbook.html', $this->params );
@@ -514,8 +522,17 @@ class c_sales extends base_c {
         $third_order_id = '0';
         $order_type = 0;
         $status = base_Constant::ORDER_STATUS_NEW;
+        $stime = 0;
+        $etime = 0;
+
         //预约订单
-        if ($_POST['order_type'] == 1){
+        if ($_POST['order_type'] == base_Constant::ORDER_TYPE_BOOK){
+            $stime = strtotime($_POST['stime']);
+            $etime = strtotime($_POST['etime']);
+
+            if ($stime > $etime)
+                $this->ShowMsg("开始时间必须小于结束时间！");
+
             if (!$_POST['third_order_id'])
                 $this->ShowMsg("请输入第三方订单号！");
 
@@ -530,7 +547,7 @@ class c_sales extends base_c {
             $ext_detail = array();
             $ext_detail['child_name'] = $_POST['child_name'];
             $ext_detail['sex'] = $_POST['sex'];
-            $ext_detail['age'] = $_POST['age'];
+            $ext_detail['birth'] = $_POST['birth'];
             $ext_detail['weight'] = $_POST['weight'];
             $ext_detail['height'] = $_POST['height'];
             $ext_detail['shoe_size'] = $_POST['shoe_size'];
@@ -613,6 +630,8 @@ class c_sales extends base_c {
                 $sales ['ext_detail'] = $ext_detail;
                 $sales ['remark'] = $remark;
                 $sales ['status'] = $status;
+                $sales ['stime'] = $stime;
+                $sales ['etime'] = $etime;
 
                 //生成验证码
                 $verify_code = rand(100000,999999);
@@ -656,6 +675,14 @@ class c_sales extends base_c {
 				$dateline = $v['dateline'];
 			}
 		}
+
+        if ($goods[0]['order_type'] == base_Constant::ORDER_TYPE_BOOK){
+            $book_detail = json_decode($goods[0]['ext_detail'],true);
+            $book_detail['sex'] = $book_detail['sex'] == 0?"男":"女";
+            $book_detail['book_time'] = date('Y-m-d H:i:s',$goods[0]['stime'])."到".date('Y-m-d H:i:s',$goods[0]['etime']);
+            $this->params ['book_detail'] = $book_detail;
+        }
+
 		$this->params ['goods'] = $goods;
 		$this->params ['order_id'] = $order_id;
 		$this->params ['out_amount'] = $out_amount;
@@ -663,6 +690,7 @@ class c_sales extends base_c {
 		$this->params ['pro_amount'] = $pro_amount;
 		$this->params ['mem_amount'] = $mem_amount;
 		$this->params ['dateline'] = $dateline;
+        $this->params ['order_type'] = $goods[0]['order_type'];
 		$_SESSION ['order_id'] = "";
 
         if ($url['ac']=='verify'){
@@ -686,6 +714,7 @@ class c_sales extends base_c {
 			$key = base_Utils::getStr ( $_POST ['key'] );
 			$stime = base_Utils::getStr ( $_POST ['stime'] );
 			$etime = base_Utils::getStr ( $_POST ['etime'] );
+            $phone = base_Utils::getStr ( $_POST ['phone'] );
 			if ($key) {
 				$condi = "order_id ='{$key}' or goods_name like '%{$key}%' or realname like '%{$key}%' or membercardid ='{$key}'";
 			}
@@ -694,12 +723,16 @@ class c_sales extends base_c {
 				$condi = $condi ? $condi . " and" : "";
 				$condi .= " dateymd between '{$stime}' and '{$etime}'";
 			}
+            if ($phone) {
+                $condi = $condi ? $condi . " and" : "";
+                $condi .= " membercardid = $phone";
+            }
 		}
 		$saleObj = new m_sales ();
 		$saleObj->setCount ( true );
 		$saleObj->setPage ( $page );
 		$saleObj->setLimit ( base_Constant::PAGE_SIZE );
-		$rs = $saleObj->select ( $condi, "order_id,sum(price*num) as allprice,dateymd,dateline,sum(p_discount+m_discount) as discount,sum(refund_amount) as refund", "group by order_id", "order by sid desc" );
+		$rs = $saleObj->select ( $condi, "order_id,sum(price*num) as allprice,dateymd,dateline,membercardid,sum(p_discount+m_discount) as discount,sum(refund_amount) as refund", "group by order_id", "order by sid desc" );
 		$this->params ['sales'] = $rs->items;
 		$this->params ['key'] = $key;
 		$this->params ['stime'] = $stime;
@@ -737,8 +770,6 @@ class c_sales extends base_c {
      * 订单核销
      */
     function pageverifyconfirm($inPath){
-        date_default_timezone_set('Asia/Shanghai');
-
         $url = $this->getUrlParams ( $inPath );
 
         if($url['membercardid'] && $url['verifycode']){

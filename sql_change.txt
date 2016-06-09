@@ -6,3 +6,5 @@ ALTER TABLE `smpss_goods` ADD `goods_type` TINYINT(1) NOT NULL ;
 ALTER TABLE `smpss_sales` ADD `ext_detail` VARCHAR(1024) NOT NULL ;
 ALTER TABLE `smpss_sales` ADD `remark` VARCHAR(1024) NOT NULL ;
 ALTER TABLE `smpss_sales` ADD `status` TINYINT(4) NOT NULL ;
+
+ALTER TABLE `smpss_sales` ADD `stime` INT(10) NOT NULL , ADD `etime` INT(10) NOT NULL ;

@@ -80,11 +80,6 @@
         <div class="form">
           <form action="{/get_url rule='/sales/out' data="oid=$order_id"/}" method="post" id="js-form2">
             <fieldset class="clearfix">
-                <p>
-                    <label class="w80">优惠总金额：</label>
-                  <span>
-                  <input type="text" value="" class="text-input small-input" name="promotion" />
-                  </span><br /></p>
 
                 <p>
                 <label class="w80"><font class="red"> * </font>手机号：</label>
@@ -102,11 +97,11 @@
                 <p>
                     开始时间：
                     <span>
-                        <input style="width: 150px" type="text" value="{/$stime/}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="stime" />
+                        <input style="width: 150px" type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="stime" />
                     </span>&nbsp;
                     结束时间：
                     <span>
-                        <input style="width: 150px" type="text" value="{/$etime/}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="etime" />
+                        <input style="width: 150px" type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="etime" />
                     </span>
                 </p>
                 <p>
@@ -124,7 +119,7 @@
                 <p style="width: 50%;float: left">
                     <label class="w80"><font class="red"> * </font>出生日期：</label>
                   <span>
-                    <input type="text" value="{/$date/}" style="width: 120px" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input" name="date" />
+                    <input type="text" value="" style="width: 120px" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input" name="birth" />
                   </span>
                 </p>
                 <p style="width: 50%;float: left">
