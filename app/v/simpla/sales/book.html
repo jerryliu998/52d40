@@ -100,6 +100,16 @@
 
                 <hr/>
                 <p>
+                    开始时间：
+                    <span>
+                        <input style="width: 150px" type="text" value="{/$stime/}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="stime" />
+                    </span>&nbsp;
+                    结束时间：
+                    <span>
+                        <input style="width: 150px" type="text" value="{/$etime/}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="etime" />
+                    </span>
+                </p>
+                <p>
                     <label class="w80"><font class="red"> * </font>儿童姓名：</label>
                   <span>
                     <input type="text" class="text-input min-input" name="child_name" />
@@ -112,9 +122,9 @@
                 </span>
                 </p>
                 <p style="width: 50%;float: left">
-                    <label class="w80"><font class="red"> * </font>年龄：</label>
+                    <label class="w80"><font class="red"> * </font>出生日期：</label>
                   <span>
-                    <input type="text" class="text-input min-input" name="age" /><small>&nbsp;岁</small>
+                    <input type="text" value="{/$date/}" style="width: 120px" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input" name="date" />
                   </span>
                 </p>
                 <p style="width: 50%;float: left">

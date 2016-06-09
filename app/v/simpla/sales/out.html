@@ -20,7 +20,7 @@
     <div class="content-box-content">
       <div class="tab-content default-tab" id="tab1">
         <!--startprint1-->
-        <table width="400">
+        <table width="100%" height="400px">
           <tr style="line-height: 32px;">
             <td colspan="3">订单号：{/$order_id/} 购买时间：{/$dateline|date_format:"%Y-%m-%d %H:%M:%S"/}</td>
           </tr>
@@ -38,23 +38,39 @@
           {//section/}
           <tr style="line-height: 32px;">
             <td colspan="3">
-              天使：<input style="border: none;border-bottom: 1px solid #ccc; background: transparent" type="text" name="" value="" />
+              姓名：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+            </td>
+          </tr>
+          <tr style="line-height: 32px;">
+            <td>
+              身高：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+            </td>
+            <td>
+              体重：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+            </td>
+            <td>
+              鞋码：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
             </td>
           </tr>
           <tr style="line-height: 32px;">
             <td colspan="3">
-              摄影师：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+              预约时间：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
             </td>
           </tr>
           <tr style="line-height: 32px;">
             <td colspan="3">
-              魔法师：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
+              生日：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" />
             </td>
           </tr>
           <tr style="line-height: 32px;">
             <td colspan="3" class="alt" style="font-weight: bold">总价：{/$out_amount/}元，优惠：{/if $mem_amount gt 0/}{/$mem_amount/}元{/elseif $pro_amount gt 0/}{/$pro_amount/}元{/else/}无{//if/}。实收：{/$real_amount/}元</td>
           </tr>
         </table>
+
+        <div>
+          <span><img style="width: 200px;height:200px;" src="{/$root_dir/}/assets/simpla/images/wechat.jpg" alt="微信支付" /></span>
+          <span><img style="width: 200px;height:200px;" src="{/$root_dir/}/assets/simpla/images/zhifubao.jpg" alt="支付宝支付" /></span>
+        </div>
 
         <!--endprint1-->
 
