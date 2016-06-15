@@ -52,7 +52,7 @@ class c_goods extends base_c {
 			//var_dump($post);exit;
 			if ($goodsObj->create ( $post )) {
 				base_Utils::ssetcookie(array('cat_id'=>$post['cat_id']));
-				$this->ShowMsg ( "操作成功！", $this->createUrl ( "/goods/addgoods" ), 2, 1 );
+				$this->ShowMsg ( "操作成功！", $this->createUrl ( "/goods/index" ), 2, 1 );
 			}
 			$this->ShowMsg ( "操作失败" . $goodsObj->getError () );
 		}
@@ -63,4 +63,22 @@ class c_goods extends base_c {
 		$this->params['goods'] = $goodsObj->selectOne("goods_id={$goods_id}");
 		return $this->render ( 'goods/addgoods.html', $this->params );
 	}
+
+    function pagedelete($inPath){
+        $url = $this->getUrlParams ( $inPath );
+
+        $goodsObj = new m_goods();
+        if($url['goodsid']){
+            $goods_info = $goodsObj->select ( "goods_id={$url['goodsid']}" )->items;
+
+            if (count($goods_info) != 1)
+                $this->ShowMsg ( "该商品不存在！" );
+
+            $ret = $goodsObj->delete ( "goods_id={$url['goodsid']}" );
+            $this->ShowMsg ( "操作成功！", $this->createUrl ( "/goods/index" ), 1, 1 );
+        }
+        else
+            $this->ShowMsg("缺少参数！");
+    }
+
 }

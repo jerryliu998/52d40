@@ -58,6 +58,10 @@
                 <label>市场价：</label>
                 <input type="text" value="{/$goods.market_price/}" class="text-input min-input" name="market_price" />
                 <span>元</span><br /><small>默认市场价为售价的1.2倍</small> </p>
+            <p>
+                <label><font class="red"> * </font>库存：</label>
+                <input type="text" value="{/$goods.stock/}" class="text-input min-input" name="stock" id="stock" />
+                 <span></span> </p>
               {/if $goods.goods_id eq ""/}
               <p>
                 <label>商品进价：</label>

@@ -54,6 +54,7 @@ class m_goods extends base_m {
 		$this->set ( "creatymd", date ( 'Y-m-d', $this->_time ) );
 		$this->set ( "creatdateline", $this->_time );
 		$this->set ("goods_type",$data['goods_type']);
+        $this->set ("stock",$data['stock']);
 		$content = $data ['goods_id'] ? "修改商品：{$data ['goods_name']}" : "新增商品：{$data ['goods_name']}";
 		$rs = $this->save ( $data ['goods_id'] );
 		if ($rs) {
