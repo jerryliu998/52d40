@@ -105,8 +105,8 @@
                 <span> </span> </p>
               <p>
                 <label>商品简介：</label>
-                <textarea name="goods_desc" class="text-input textarea">{/$goods.goods_desc/}</textarea>
-                <span> </span> <br /><small>不超过200个汉字</small></p>
+                <textarea name="goods_desc" class="text-input textarea" rows="10">{/$goods.goods_desc/}</textarea>
+                <span> </span> <br /><small>不超过500个汉字</small></p>
               <dt>
                 <input type="submit" name="" id="button" class="button" value="{/if $goods.goods_id/}编辑{/else/}添加{//if/}" />
               </dt>
