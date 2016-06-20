@@ -81,20 +81,12 @@
           <form action="{/get_url rule='/sales/out' data="oid=$order_id"/}" method="post" id="js-form2">
             <fieldset class="clearfix">
 
-                <p>
-                <label class="w80"><font class="red"> * </font>手机号：</label>
-                  <span>
-                  <input type="text" value="" class="text-input small-input" name="mobile" />
-                  </span></p>
-
-                <p>
-                    <label class="w80"><font class="red"> * </font>第三方订单号(来自微店)：</label>
-                  <span>
-                  <input type="text" value="" class="text-input small-input" name="third_order_id" />
-                  </span></p>
-
                 <hr/>
                 <p>
+                    <label>预约信息</label>
+                </p>
+
+                <p style="width: 55%;float: left">
                     开始时间：
                     <span>
                         <input style="width: 150px" type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="stime" />
@@ -104,48 +96,87 @@
                         <input style="width: 150px" type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="etime" />
                     </span>
                 </p>
+                <p style="width: 45%;float: left;">
+                    <font class="red"> * </font>第三方订单号(来自微店)：
+                    <span>
+                        <input type="text" value="" class="text-input" style="width: 200px" name="third_order_id" />
+                    </span>
+                </p>
+                <hr/>
                 <p>
-                    <label class="w80"><font class="red"> * </font>儿童姓名：</label>
+                    <label>用户信息</label>
+                </p>
+                <p style="width: 50%;float: left">
+                    <font class="red"> * </font>姓名：
+                    <span>
+                        <input type="text" class="text-input" style="width: 200px" name="realname" />
+                    </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <font class="red"> * </font>联系电话：
+                    <span>
+                        <input type="text" class="text-input" style="width: 200px" name="mobile" />
+                    </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <font class="red"> * </font>邮箱：
+                    <span>
+                        <input type="text" class="text-input" style="width: 200px" name="email" />
+                    </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <font class="red"> * </font>邮寄地址：
+                    <span>
+                        <input type="text" class="text-input" style="width: 200px" name="address" />
+                    </span>
+                </p>
+                <hr/>
+                <p>
+                    <label>宝宝信息</label>
+                </p>
+                <p>
+                    <font class="red"> * </font>儿童姓名：
                   <span>
                     <input type="text" class="text-input min-input" name="child_name" />
                   </span>
                 </p>
                 <p style="width: 50%;float: left">
-                    <label class="w80"><font class="red"> * </font>性别：</label>
+                   <font class="red"> * </font>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
                 <span>
                   <input name="sex" type="radio" value="0" checked/>&nbsp;男&nbsp;<input name="sex" type="radio" value="1"/>&nbsp;女&nbsp;
                 </span>
                 </p>
                 <p style="width: 50%;float: left">
-                    <label class="w80"><font class="red"> * </font>出生日期：</label>
+                    <font class="red"> * </font>出生日期：
                   <span>
                     <input type="text" value="" style="width: 120px" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input" name="birth" />
                   </span>
                 </p>
                 <p style="width: 50%;float: left">
-                    <label class="w80"><font class="red"> * </font>体重：</label>
+                    <font class="red"> * </font>体&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：
                   <span>
                     <input type="text" class="text-input min-input" name="weight" /><small>&nbsp;kg</small>
                   </span>
                 </p>
                 <p style="width: 50%;float: left">
-                    <label class="w80"><font class="red"> * </font>身高：</label>
+                    <font class="red"> * </font>身&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;高：
                   <span>
                     <input type="text" class="text-input min-input" name="height" /><small>&nbsp;cm</small>
                   </span>
                 </p>
                 <p style="width: 50%;float: left">
-                    <label class="w80"><font class="red"> * </font>鞋码：</label>
+                    <font class="red"> * </font>鞋&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：
                   <span>
                     <input type="text" class="text-input min-input" name="shoe_size" />
                   </span>
                 </p>
                 <p style="width: 50%;float: left">
-                    <label class="w80"><font class="red"> * </font>备注：</label>
+                    <font class="red"> * </font>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：
                   <span>
-                    <input type="text" class="text-input" style="width: 400px" name="remark" />
+                    <input type="text" class="text-input" style="width: 350px" name="remark" />
                   </span>
                 </p>
+                <hr/>
 
 
               <dt>

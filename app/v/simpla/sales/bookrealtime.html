@@ -1,0 +1,94 @@
+{/include file="simpla/common/header.html"/}
+{/include file="simpla/common/left.html"/}
+<div id="main-content">
+  <h2>欢迎您 {/$_adminname/}</h2>
+  <p id="page-intro">查看预约实况。</p>
+  <div class="clear"></div>
+  <div class="content-box">
+    <div class="content-box-header">
+      <h3>预约订单列表</h3>
+	          <ul class="content-box-tabs">
+	   <li><a href="#tab1" class="default-tab">预约订单列表</a></li>
+            <li><a href="{/get_url rule="/sales/book"/}">新增预约订单</a></li>
+                <li><a href="">预约实况</a></li>
+</ul>
+      <div class="clear"></div>
+    </div>
+
+    <div class="content-box-content">
+      <div class="tab-content default-tab" id="tab1">
+        <div class="form">
+          <form id="js-form" method="post" action="{/get_url rule='/sales/booklist'/}">
+            <fieldset class="clearfix">
+              <p>日期： <span>
+                <input type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input min-input" name="" />
+              </p>
+            </fieldset>
+          </form>
+          <hr/>
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>时间段</th>
+              <th>已预约数量</th>
+              <th>时间段</th>
+              <th>已预约数量</th>
+              <th>时间段</th>
+              <th>已预约数量</th>
+              <th>时间段</th>
+              <th>已预约数量</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>8：00-10：00</td>
+              <td>8：00</td>
+              <td></td>
+              <td>8：30</td>
+              <td></td>
+              <td>9：00</td>
+              <td></td>
+              <td>9：30</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>10：00-12：00</td>
+              <td>10：00</td>
+              <td></td>
+              <td>10：30</td>
+              <td></td>
+              <td>11：00</td>
+              <td></td>
+              <td>11：30</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>12：00-14：00</td>
+              <td>12：00</td>
+              <td></td>
+              <td>12：30</td>
+              <td></td>
+              <td>13：00</td>
+              <td></td>
+              <td>13：30</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>14：00-16：00</td>
+              <td>14：00</td>
+              <td></td>
+              <td>14：30</td>
+              <td></td>
+              <td>15：00</td>
+              <td></td>
+              <td>15：30</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {/include file="simpla/common/copy.html"/} </div>
+{/include file="simpla/common/footer.html"/} 

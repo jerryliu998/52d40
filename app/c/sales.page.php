@@ -379,7 +379,7 @@ class c_sales extends base_c {
         $this->params ['info'] = $info;
         $this->params ['book_goods_list'] = $book_goods_list;
         //print_r($info);
-        return $this->render ( 'sales/book.html', $this->params );
+        return $this->render ( 'sales/bookrealtime.html', $this->params );
     }
 
     //编辑预约订单
@@ -578,6 +578,9 @@ class c_sales extends base_c {
 			$dateline = time();
 			$goodsObj = new m_goods ();
 			$mobile = base_Utils::getStr ( $_POST ['mobile'] );
+            $realname = base_Utils::getStr ( $_POST ['realname'] );
+            $email = base_Utils::getStr ( $_POST ['email'] );
+            $address = base_Utils::getStr ( $_POST ['address'] );
 			if ($mobile) {
 				$memberObj = new m_member ();
 
@@ -586,9 +589,11 @@ class c_sales extends base_c {
                 if (empty($mem_info)){
                     //不存在创建用户
                     $data = array();
-                    $data['realname'] = $mobile;
+                    $data['realname'] = $realname;
                     $data['membercardid'] = $mobile;
                     $data['mobile'] = $mobile;
+                    $data['email'] = $email;
+                    $data['address'] = $address;
                     $insert_id = $memberObj->create($data);
                     $mem_info = $memberObj->select("mid='{$insert_id}'")->items;
                 }
@@ -598,7 +603,9 @@ class c_sales extends base_c {
 					$this->ShowMsg ( "会员卡不存在！" );
 				$sales ['mid'] = $mem_rs ['mid'];
 				$sales ['membercardid'] = $mem_rs ['membercardid'];
-				$sales ['realname'] = $mem_rs ['realname'];
+				$sales ['realname'] = $realname;
+                $sales ['email'] = $email;
+                $sales ['address'] = $address;
 			}
 			//$order_id = date ( "mdHis", time () ) . base_Utils::random ( 4, 1 );
 			$mem_amount = 0;
@@ -680,6 +687,17 @@ class c_sales extends base_c {
             $book_detail = json_decode($goods[0]['ext_detail'],true);
             $book_detail['sex'] = $book_detail['sex'] == 0?"男":"女";
             $book_detail['book_time'] = date('Y-m-d H:i:s',$goods[0]['stime'])."到".date('Y-m-d H:i:s',$goods[0]['etime']);
+            $book_detail['remark'] = $goods[0]['remark'];
+            $book_detail['realname'] = $goods[0]['realname'];
+            $book_detail['membercardid'] = $goods[0]['membercardid'];
+            $book_detail['email'] = $goods[0]['email'];
+            $book_detail['address'] = $goods[0]['address'];
+
+            //获取商品描述
+            $goodsObj = new m_goods ();
+            $goodsdetail = $goodsObj->select ( "goods_id={$goods[0]['goods_id']}" )->items;
+            $book_detail['goods_desc'] = $goodsdetail[0]['goods_desc'];
+
             $this->params ['book_detail'] = $book_detail;
         }
 

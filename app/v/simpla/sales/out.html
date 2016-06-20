@@ -19,7 +19,12 @@
 
     <div class="content-box-content">
       <div class="tab-content default-tab" id="tab1">
+
+
         <!--startprint1-->
+        <p>
+          <label>订单信息</label>
+        </p>
         <table width="100%" height="100%">
           <tr style="line-height: 32px;">
             <td colspan="3">订单号：{/$order_id/} 购买时间：{/$dateline|date_format:"%Y-%m-%d %H:%M:%S"/}</td>
@@ -36,43 +41,150 @@
             <td>{/$goods[i].out_price*$goods[i].num/}</td>
           </tr>
           {//section/}
-            {/if $order_type eq 1/}
-          <tr style="line-height: 32px;">
-            <td >
-              姓名：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.child_name/}</label>
-            </td>
-              <td >
-                  性别：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.sex/}</label>
-              </td>
-              <td >
-                  生日：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.birth/}</label>
-              </td>
 
-          </tr>
-
-            <tr style="line-height: 32px;">
-                <td colspan="3">
-                    预约时间：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.book_time/}</label>
-                </td>
-            </tr>
-
-          <tr style="line-height: 32px;">
-            <td>
-              身高：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.height/}cm</label>
-            </td>
-            <td>
-              体重：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.weight/}kg</label>
-            </td>
-            <td>
-              鞋码：<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.shoe_size/}</label>
-            </td>
-          </tr>
-            {//if/}
           <tr style="line-height: 32px;">
             <td class="alt" style="font-weight: bold">总价：{/$out_amount/}元，优惠：{/if $mem_amount gt 0/}{/$mem_amount/}元{/elseif $pro_amount gt 0/}{/$pro_amount/}元{/else/}无{//if/}。实收：{/$real_amount/}元</td>
               <td colspan="2" class="alt" style="font-weight: bold">收银员：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" /></td>
           </tr>
         </table>
+          {/if $order_type eq 1/}
+
+          <hr/>
+        <p>
+          <label>预约信息</label>
+        </p>
+        <p style="width: 50%;float: left">
+          预约时间 :
+            <label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.book_time/}</label>        </p>
+        <p style="float: left;width: 50%">
+          到店时间 :
+          <input type="text" class="text-input" style="width: 350px;border: none;border-bottom: 1px solid #ccc;background: transparent" />
+        </p>
+        <hr/>
+        <p>
+          <label>用户信息</label>
+        </p>
+        <p style="width: 50%;float: left">
+          姓名：
+                    <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.realname/}</label>
+                        </span>
+        </p>
+        <p style="width: 50%;float: left">
+          联系电话：
+                    <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.membercardid/}</label>
+                    </span>
+        </p>
+        <p style="width: 50%;float: left">
+          邮箱：
+                    <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.email/}</label>
+                    </span>
+        </p>
+        <p style="width: 50%;float: left">
+          邮寄地址：
+                    <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.address/}</label>
+                    </span>
+        </p>
+        <hr/>
+        <p>
+          <label>宝宝信息</label>
+        </p>
+          <p>
+          儿童姓名：
+                  <span>
+                    <label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.child_name/}</label>
+                  </span>
+              </p>
+
+          <div>
+        <p style="width: 50%;float: left">
+          性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
+                <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.sex/}</label>                </span>
+        </p>
+        <p style="width: 50%;float: left">
+          出生日期：
+                  <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.birth/}</label>                  </span>
+        </p>
+          </div>
+        <div style="clear:both"></div>
+
+
+          <div>
+          <p style="width: 50%;float: left">
+
+              体&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重：
+                  <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.weight/}kg</label>                  </span>
+          </p>
+        <p style="width: 50%;float: left">
+          身&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;高：
+                  <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.height/}cm</label>                  </span>
+        </p>
+          </div>
+          <div style="clear:both"></div>
+
+          <div></div>
+        <p style="width: 50%;float: left">
+          鞋&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：
+                  <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.shoe_size/}</label>                  </span>
+        </p>
+          <p style="width: 50%;float: left">
+              备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：
+                  <span>
+<label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.remark/}</label>                  </span>
+                  </span>
+          </p>
+      </div>
+          <div style="clear:both"></div>
+
+        <div>
+          <p style="width: 50%;float: left">
+              服装尺寸：
+                  <span>
+                    <input type="text" style="border: none;border-bottom: 1px solid #ccc;background: transparent" class="text-input min-input" name="clo_size" />
+                  </span>
+          </p>
+            </div>
+        <div style="clear:both"></div>
+
+        <hr/>
+        <p>
+          <label>套餐详情</label>
+        </p>
+        <p>
+            <label style="border: none;border-bottom: 1px solid #ccc;background: transparent">{/$book_detail.goods_desc/}</label>
+        </p>
+
+        <hr/>
+        <p>
+          <label>工作人员</label>
+        </p>
+        <p style="width: 50%;float: left">
+          天&nbsp;&nbsp;&nbsp;&nbsp;使 :
+          <input type="text" class="text-input" style="width: 200px;border: none;border-bottom: 1px solid #ccc;background: transparent" />
+        </p>
+        <p style="width: 50%;float: left">
+          化妆师 :
+          <input type="text" class="text-input" style="width: 200px;border: none;border-bottom: 1px solid #ccc;background: transparent" />
+        </p>
+        <p style="width: 50%;float: left">
+          摄影师 :
+          <input type="text" class="text-input" style="width: 200px;border: none;border-bottom: 1px solid #ccc;background: transparent" />
+        </p>
+        <p style="width: 50%;float: left">
+          收银员 :
+          <input type="text" class="text-input" style="width: 200px;border: none;border-bottom: 1px solid #ccc;background: transparent" />
+        </p>
+
+        <hr/>
+          {//if/}
 
         <div>
           <span style="padding-right: 70px;"><img style="width: 200px;height:200px;" src="{/$root_dir/}/assets/simpla/images/wechat.jpg" alt="微信支付" /></span>
