@@ -379,7 +379,7 @@ class c_sales extends base_c {
         $this->params ['info'] = $info;
         $this->params ['book_goods_list'] = $book_goods_list;
         //print_r($info);
-        return $this->render ( 'sales/bookrealtime.html', $this->params );
+        return $this->render ( 'sales/book.html', $this->params );
     }
 
     //编辑预约订单
