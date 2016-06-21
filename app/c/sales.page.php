@@ -159,6 +159,38 @@ class c_sales extends base_c {
 
     }
 
+    //预约实况
+    function pagebookrealtime($inPath) {
+        $begin_time = strtotime($_POST['date']);
+        $end_time = $begin_time + 24*3600;
+        $saleObj = new m_sales ();
+        $book_result = $saleObj->select("stime > $begin_time and stime < $end_time and order_type = 1","count(*),stime","group by stime")->items;
+
+        $realtime = array();
+        if (!empty($book_result)){
+            foreach ($book_result as $book) {
+                $realtime[date("h:i", $book['stime'])] = $book['count(*)'];
+            }
+        }
+
+        $timeArr = array("08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30");
+
+        $result = array();
+        foreach ($timeArr as $time) {
+            $temp = array();
+            $temp['time'] = $time;
+
+            if (isset($realtime[$time]))
+                $temp['count'] = $realtime[$time];
+            else
+                $temp['count'] =0;
+            $result[] = $temp;
+        }
+
+        $this->params ['realtime'] = $result;
+        return $this->render ( 'sales/bookrealtime.html', $this->params );
+    }
+
     //商品订单列表
     function pagegoodslist($inPath) {
         $url = $this->getUrlParams ( $inPath );
@@ -411,8 +443,11 @@ class c_sales extends base_c {
             $remark = $_POST['remark'];
             $stime = strtotime($_POST['stime']);
             $etime = strtotime($_POST['etime']);
+            $realname = $_POST['realname'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
 
-            $ret = $saleObj->update ( "sid={$url['sid']} and order_id='{$url['orderid']}'", "ext_detail='{$ext_detail}',remark='{$remark}',stime='{$stime}',etime='{$etime}'" );
+            $ret = $saleObj->update ( "sid={$url['sid']} and order_id='{$url['orderid']}'", "ext_detail='{$ext_detail}',remark='{$remark}',stime='{$stime}',etime='{$etime}',realname='{$realname}',email='{$email}',address='{$address}'" );
 
             if ($ret>=0)
                 $this->ShowMsg ( "操作成功！", $this->createUrl ( "/sales/booklist" ), 1, 1 );
@@ -425,6 +460,10 @@ class c_sales extends base_c {
         $ext_detail = json_decode($sale_info[0]['ext_detail'],true);
         $ext_detail['stime'] = $sale_info[0]['stime'];
         $ext_detail['etime'] = $sale_info[0]['etime'];
+        $ext_detail['realname'] = $sale_info[0]['realname'];
+        $ext_detail['membercardid'] = $sale_info[0]['membercardid'];
+        $ext_detail['email'] = $sale_info[0]['email'];
+        $ext_detail['address'] = $sale_info[0]['address'];
 
         $this->params ['ext_detail'] = $ext_detail;
 
@@ -527,8 +566,10 @@ class c_sales extends base_c {
 
         //预约订单
         if ($_POST['order_type'] == base_Constant::ORDER_TYPE_BOOK){
-            $stime = strtotime($_POST['stime']);
-            $etime = strtotime($_POST['etime']);
+            $booktime = $_POST['date']." ".$_POST['timerange'].":00";
+
+            $stime = strtotime($booktime);
+            $etime = $stime+30*60;
 
             if ($stime > $etime)
                 $this->ShowMsg("开始时间必须小于结束时间！");

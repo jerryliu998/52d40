@@ -59,6 +59,38 @@
                         <input style="width: 150px" type="text" value="{/$ext_detail.etime|date_format:'%Y-%m-%d %H:%M:%S'/}" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="etime" />
                     </span>
                 </p>
+				
+				<hr />
+
+				<p>
+                    <label>用户信息</label>
+                </p>
+                <p style="width: 50%;float: left">
+                    <font class="red"> * </font>姓名：
+                    <span>
+                        <input type="text" class="text-input" style="width: 200px" name="realname" value="{/$ext_detail.realname/}"/>
+                    </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <font class="red"> * </font>联系电话：
+                    <span>
+                        <input type="text" class="text-input" style="width: 200px" name="membercardid" value="{/$ext_detail.membercardid/}"  disabled="disabled"/>
+                    </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <font class="red"> * </font>邮箱：
+                    <span>
+                        <input type="text" class="text-input" style="width: 200px" name="email" value="{/$ext_detail.email/}"/>
+                    </span>
+                </p>
+                <p style="width: 50%;float: left">
+                    <font class="red"> * </font>邮寄地址：
+                    <span>
+                        <input type="text" class="text-input" style="width: 200px" name="address" value="{/$ext_detail.address/}"/>
+                    </span>
+                </p>
+
+				<hr />
 
                 <p>
                     <label class="w80"><font class="red"> * </font>儿童姓名：</label>

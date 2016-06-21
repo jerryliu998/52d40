@@ -10,6 +10,7 @@
         <ul class="content-box-tabs">
             <li><a href="{/get_url rule="/sales/booklist"/}">预约订单列表</a></li>
             <li><a href="#tab1" class="default-tab"}">新增预约订单</a></li>
+            <li><a href="{/get_url rule="/sales/bookrealtime"/}">预约实况</a></li>
         </ul>
 
         <div class="clear"></div>
@@ -21,14 +22,14 @@
             <fieldset class="clearfix">
                 <p>
                     <label class="w80"><font class="red"> * </font>商品名称：</label>
-                <span>
-                  <select name="goods_sn">
-                      <option value="0">选择商品</option>
-                      {/section name=i loop=$book_goods_list/}
-                      <option value="{/$book_goods_list[i].goods_sn/}">{/$book_goods_list[i].goods_name/}</option>
-                      {//section/}
-                  </select>
-                </span>
+                    <span>
+                      <select name="goods_sn">
+                          <option value="0">选择商品</option>
+                          {/section name=i loop=$book_goods_list/}
+                          <option value="{/$book_goods_list[i].goods_sn/}">{/$book_goods_list[i].goods_name/}</option>
+                          {//section/}
+                      </select>
+                    </span>
                 </p>
 
                 <p>
@@ -86,17 +87,37 @@
                     <label>预约信息</label>
                 </p>
 
-                <p style="width: 55%;float: left">
-                    开始时间：
+                <p style="width: 30%;float: left">
+                    日期 :
                     <span>
-                        <input style="width: 150px" type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="stime" />
-                    </span>&nbsp;
-                    结束时间：
-                    <span>
-                        <input style="width: 150px" type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" class="text-input" name="etime" />
+                        <input style="width: 150px" type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input" name="date" />
                     </span>
                 </p>
-                <p style="width: 45%;float: left;">
+                <p style="width: 30%;float: left;margin-top: 2px;">
+                    预约时段 :
+                    <span>
+                      <select name="timerange">
+                          <option value="0">请选择</option>
+                          <option value="8:00">8:00-8:30</option>
+                          <option value="8:30">8:30-9:00</option>
+                          <option value="9:00">9:00-9:30</option>
+                          <option value="9:30">9:30-10:00</option>
+                          <option value="10:00">10:00-10:30</option>
+                          <option value="10:30">10:30-11:00</option>
+                          <option value="11:00">11:00-11:30</option>
+                          <option value="11:30">11:30-12:00</option>
+                          <option value="12:00">12:00-12:30</option>
+                          <option value="12:30">12:30-13:00</option>
+                          <option value="13:00">13:00-13:30</option>
+                          <option value="13:30">13:30-14:00</option>
+                          <option value="14:00">14:00-14:30</option>
+                          <option value="14:30">14:30-15:00</option>
+                          <option value="15:00">15:00-15:30</option>
+                          <option value="15:30">15:30-16:00</option>
+                      </select>
+                    </span>
+                </p>
+                <p style="width: 40%;float: left;">
                     <font class="red"> * </font>第三方订单号(来自微店)：
                     <span>
                         <input type="text" value="" class="text-input" style="width: 200px" name="third_order_id" />

@@ -10,7 +10,8 @@
 	          <ul class="content-box-tabs">
 	   <li><a href="#tab1" class="default-tab">预约订单列表</a></li>
             <li><a href="{/get_url rule="/sales/book"/}">新增预约订单</a></li>
-</ul>
+                  <li><a href="{/get_url rule="/sales/bookrealtime"/}">预约实况</a></li>
+              </ul>
       <div class="clear"></div>
     </div>
     <div class="content-box-content">
@@ -49,6 +50,7 @@
               <th>数量</th>
               <th>实际售价</th>
               <th>状态</th>
+              <th>预约时间</th>
               <th>销售时间</th>
               <th>操作</th>
             </tr>
@@ -67,6 +69,7 @@
             <td>{/$sales[i].num/}</td>
             <td>{/$sales[i].price*$sales[i].num/}</td>
             <td>{/$sales[i].status_text/}</td>
+            <td>{/$sales[i].stime|date_format:"%Y-%m-%d %H:%M"/}</td>
             <td>{/$sales[i].dateline|date_format:"%Y-%m-%d %H:%M:%S"/}</td>
             <td>
                 <a onclick="return(confirm('确认取消订单?'))" href="{/get_url rule='/sales/booklist' data='ac=cancel&sid='|cat:$sales[i].sid|cat:'&orderid='|cat:$sales[i].order_id/}" title="取消"><img src="{/$root_dir/}/assets/simpla/images/icons/cross.png" alt="取消" /></a>
