@@ -21,7 +21,7 @@
           <form id="js-form" method="post" action="{/get_url rule='/sales/bookrealtime'/}">
             <fieldset class="clearfix">
               <p>日期： <span>
-                <input type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input min-input" name="date" />
+                <input type="text" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input min-input" name="date" value="{/$date/}" />
                 <input type="submit" name="" id="button" class="button" value="查询" />
               </p>
 

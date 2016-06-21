@@ -187,7 +187,15 @@ class c_sales extends base_c {
             $result[] = $temp;
         }
 
+        if ($_POST){
+            $date = $_POST['date'];
+        }
+        else
+            $date =  date("Y-m-d", time());
+
+        $this->params ['date'] = $date;
         $this->params ['realtime'] = $result;
+
         return $this->render ( 'sales/bookrealtime.html', $this->params );
     }
 
