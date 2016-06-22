@@ -75,7 +75,9 @@
                 <a onclick="return(confirm('确认取消订单?'))" href="{/get_url rule='/sales/booklist' data='ac=cancel&sid='|cat:$sales[i].sid|cat:'&orderid='|cat:$sales[i].order_id/}" title="取消"><img src="{/$root_dir/}/assets/simpla/images/icons/cross.png" alt="取消" /></a>
                 <a href="{/get_url rule='/sales/editbook' data='sid='|cat:$sales[i].sid|cat:'&orderid='|cat:$sales[i].order_id/}" title="修改"><img src="{/$root_dir/}/assets/simpla/images/icons/pencil.png" alt="修改" /></a>
                 <a onclick="return(confirm('确认重发验证码?'))" href="{/get_url rule='/sales/booklist' data='ac=sendcode&sid='|cat:$sales[i].sid|cat:'&orderid='|cat:$sales[i].order_id/}" title="重发验证码"><img src="{/$root_dir/}/assets/simpla/images/icons/tick_circle.png" alt="重发验证码" /></a>
-            </td>
+              <a href="{/get_url rule="/sales/out" data="ac=p&oid="|cat:$sales[i].order_id/}" title="打印"><img src="{/$root_dir/}/assets/simpla/images/icons/information.png" alt="打印" /></a>
+
+              </td>
           </tr>
           {/sectionelse/}
           <tr>
