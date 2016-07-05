@@ -40,6 +40,7 @@ function getcity(rid,cid) {
 }
 
 function preview(oper) {
+	$('html').height('auto');
 	if (oper < 10) {
 		bdhtml=window.document.body.innerHTML;//获取当前页的html代码
 		sprnstr="<!--startprint"+oper+"-->";//设置打印开始区域
