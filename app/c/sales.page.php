@@ -418,6 +418,12 @@ class c_sales extends base_c {
         $this->params ['discount'] = $discount;
         $this->params ['info'] = $info;
         $this->params ['book_goods_list'] = $book_goods_list;
+        $modify_status = array(
+            base_Constant::ORDER_STATUS_NEW=>"未支付",
+            base_Constant::ORDER_STATUS_PAY=>"已支付",
+        );
+        $this->params ['modify_status'] = $modify_status;
+
         //print_r($info);
         return $this->render ( 'sales/book.html', $this->params );
     }
@@ -454,8 +460,9 @@ class c_sales extends base_c {
             $realname = $_POST['realname'];
             $email = $_POST['email'];
             $address = $_POST['address'];
+            $status = $_POST['status'];
 
-            $ret = $saleObj->update ( "sid={$url['sid']} and order_id='{$url['orderid']}'", "ext_detail='{$ext_detail}',remark='{$remark}',stime='{$stime}',etime='{$etime}',realname='{$realname}',email='{$email}',address='{$address}'" );
+            $ret = $saleObj->update ( "sid={$url['sid']} and order_id='{$url['orderid']}'", "ext_detail='{$ext_detail}',remark='{$remark}',stime='{$stime}',etime='{$etime}',realname='{$realname}',email='{$email}',address='{$address}',status='{$status}'" );
 
             if ($ret>=0)
                 $this->ShowMsg ( "操作成功！", $this->createUrl ( "/sales/booklist" ), 1, 1 );
@@ -472,8 +479,21 @@ class c_sales extends base_c {
         $ext_detail['membercardid'] = $sale_info[0]['membercardid'];
         $ext_detail['email'] = $sale_info[0]['email'];
         $ext_detail['address'] = $sale_info[0]['address'];
+        $ext_detail['status'] = $sale_info[0]['status'];
 
         $this->params ['ext_detail'] = $ext_detail;
+
+        $order_status = base_Utils::getOrderStatus();
+        $this->params ['order_status'] = $order_status;
+        $modify_status = array(
+            base_Constant::ORDER_STATUS_NEW=>"未支付",
+            base_Constant::ORDER_STATUS_PAY=>"已支付",
+        );
+        $this->params ['modify_status'] = $modify_status;
+        if ($ext_detail['status'] == base_Constant::ORDER_STATUS_NEW)
+            $this->params ['modify_flag'] = 1;
+        else
+            $this->params ['modify_flag'] = 0;
 
         return $this->render ( 'sales/editbook.html', $this->params );
     }
@@ -604,7 +624,7 @@ class c_sales extends base_c {
             $ext_detail = json_encode($ext_detail,JSON_UNESCAPED_UNICODE);
 
             $remark = $_POST['remark'];
-            $status = base_Constant::ORDER_STATUS_PAY;
+            $status = $_POST['status'];
         }
         //商品订单
         else if ($_POST['order_type'] == 2){
@@ -758,6 +778,10 @@ class c_sales extends base_c {
 		$this->params ['mem_amount'] = $mem_amount;
 		$this->params ['dateline'] = $dateline;
         $this->params ['order_type'] = $goods[0]['order_type'];
+
+        $order_status = base_Utils::getOrderStatus();
+        $this->params ['order_status'] = $order_status[$goods[0]['status']];
+
 		$_SESSION ['order_id'] = "";
 
         if ($url['ac']=='verify'){

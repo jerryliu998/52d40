@@ -42,8 +42,12 @@
           </tr>
           {//section/}
 
+            <tr style="line-height: 32px;">
+                <td colspan="2" class="alt" style="font-weight: bold">订单状态：{/$order_status/}</td>
+            </tr>
+
           <tr style="line-height: 32px;">
-            <td class="alt" style="font-weight: bold">总价：{/$out_amount/}元，优惠：{/if $mem_amount gt 0/}{/$mem_amount/}元{/elseif $pro_amount gt 0/}{/$pro_amount/}元{/else/}无{//if/}。实收：{/$real_amount/}元</td>
+            <td class="alt" style="font-weight: bold">总价：{/$out_amount/}元，优惠：{/if $mem_amount gt 0/}{/$mem_amount/}元{/elseif $pro_amount gt 0/}{/$pro_amount/}元{/else/}无{//if/}。应收：{/$real_amount/}元</td>
               <td colspan="2" class="alt" style="font-weight: bold">收银员：<input style="border: none;border-bottom: 1px solid #ccc;background: transparent" type="text" name="" value="" /></td>
           </tr>
         </table>
