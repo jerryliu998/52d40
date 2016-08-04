@@ -88,12 +88,14 @@
                 </p>
 
                 <p style="width: 50%;float: left">
+                    <font class="red"> * </font>
                     日期 :
                     <span>
                         <input style="width: 150px" type="text" value="" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" class="text-input" name="date" />
                     </span>
                 </p>
                 <p style="width: 50%;float: left;margin-top: 2px;">
+                    <font class="red"> * </font>
                     预约时段 :
                     <span>
                       <select name="timerange">
@@ -117,13 +119,9 @@
                       </select>
                     </span>
                 </p>
-
-                <p style="width: 50%;float: left;">
-                    <font class="red"> * </font>第三方订单号(来自微店)：
-                    <span>
-                        <input type="text" value="" class="text-input" style="width: 200px" name="third_order_id" />
-                    </span>
+                <p style="clear:both">
                 </p>
+
                 <p style="width: 50%;float: left;">
                     <font class="red"> * </font>订单状态：
 
@@ -135,7 +133,24 @@
                     </select>
                 </p>
                 <p style="clear:both">
+                </p>
 
+                <p style="width: 50%;float: left;">
+                    第三方订单号：
+                    <span>
+                        <input type="text" value="" class="text-input" style="width: 200px" name="third_order_id" />
+                    </span>
+                    <small>若无可不填</small>
+                </p>
+                <p style="width: 50%;float: left;">
+                    <font class="red"> * </font>是否第三方核销：
+
+                    <span>
+                      <input name="third_verify_flag" type="radio" value="1"/>&nbsp;是&nbsp;<input name="third_verify_flag" type="radio" value="0" checked/>&nbsp;否&nbsp;
+                    </span>
+                    <small><font class="red">选择是，则不会发送核销短信</font></small>
+                </p>
+                <p style="clear:both">
                 </p>
 
                 <hr/>

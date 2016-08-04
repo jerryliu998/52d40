@@ -12,3 +12,6 @@ ALTER TABLE `smpss_sales` ADD `stime` INT(10) NOT NULL , ADD `etime` INT(10) NOT
 ALTER TABLE `smpss_goods` CHANGE `goods_desc` `goods_desc` VARCHAR(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '商品简介';
 
 ALTER TABLE `smpss_sales` ADD `email` VARCHAR(32) NOT NULL AFTER `realname`, ADD `address` VARCHAR(200) NOT NULL AFTER `email`;
+
+ALTER TABLE `smpss_sales` ADD `third_verify_flag` TINYINT(1) NOT NULL DEFAULT '0' ;
+update `smpss_sales` set third_verify_flag = 0 WHERE order_type = 1

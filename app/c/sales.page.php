@@ -122,9 +122,13 @@ class c_sales extends base_c {
                 if (count($sale_info) != 1)
                     $this->ShowMsg ( "该订单不存在！" );
 
-                if ($sale_info[0]['order_type'] == base_Constant::ORDER_TYPE_BOOK){
-                    $msg_content = "感谢订购".$sale_info[0]['goods_name'].",您的验证码是".$sale_info[0]['verify_code'];
-                    base_Utils::sendMsg($sale_info[0]['membercardid'],$msg_content);
+                if ($sale_info[0]['order_type'] == base_Constant::ORDER_TYPE_BOOK ){
+                    if ( $sale_info[0]['third_verify_flag'] == 0){
+                        $msg_content = "感谢订购".$sale_info[0]['goods_name'].",您的验证码是".$sale_info[0]['verify_code'];
+                        base_Utils::sendMsg($sale_info[0]['membercardid'],$msg_content);
+                    }
+                    else
+                        $this->ShowMsg ( "该订单无需发送核销短信！" );
                 }
             }
             else
@@ -489,9 +493,17 @@ class c_sales extends base_c {
             base_Constant::ORDER_STATUS_NEW=>"未支付",
             base_Constant::ORDER_STATUS_PAY=>"已支付",
         );
+        $modify_status_new = array(
+            base_Constant::ORDER_STATUS_PAY=>"已支付",
+            base_Constant::ORDER_STATUS_OK=>"已核销",
+        );
         $this->params ['modify_status'] = $modify_status;
+        $this->params ['modify_status_new'] = $modify_status_new;
+
         if ($ext_detail['status'] == base_Constant::ORDER_STATUS_NEW)
             $this->params ['modify_flag'] = 1;
+        else if ($ext_detail['status'] == base_Constant::ORDER_STATUS_PAY)
+            $this->params ['modify_flag'] = 2;
         else
             $this->params ['modify_flag'] = 0;
 
@@ -588,6 +600,7 @@ class c_sales extends base_c {
 
         $third_order_id = '0';
         $order_type = 0;
+		$third_verify_flag = 1;
         $status = base_Constant::ORDER_STATUS_NEW;
         $stime = 0;
         $etime = 0;
@@ -602,15 +615,16 @@ class c_sales extends base_c {
             if ($stime > $etime)
                 $this->ShowMsg("开始时间必须小于结束时间！");
 
-            if (!$_POST['third_order_id'])
-                $this->ShowMsg("请输入第三方订单号！");
+			if ($_POST['third_order_id']){
+			    $third_order_id = $_POST['third_order_id'];
+				$temp_sales = $saleObj->select("third_order_id='{$third_order_id}'")->items;
 
-            $third_order_id = $_POST['third_order_id'];
+				if (!empty($temp_sales))
+					$this->ShowMsg("此订单已经录入！");
+			}
+
             $order_type = 1;
-            $temp_sales = $saleObj->select("third_order_id='{$third_order_id}'")->items;
-
-            if (!empty($temp_sales))
-                $this->ShowMsg("此订单已经录入！");
+			$third_verify_flag = $_POST['third_verify_flag'];
 
             //拼接额外信息
             $ext_detail = array();
@@ -708,6 +722,7 @@ class c_sales extends base_c {
                 $sales ['status'] = $status;
                 $sales ['stime'] = $stime;
                 $sales ['etime'] = $etime;
+                $sales ['third_verify_flag'] = $third_verify_flag;
 
                 //生成验证码
                 $verify_code = rand(100000,999999);
@@ -725,7 +740,7 @@ class c_sales extends base_c {
 				$purchaseObj->outStock ( $sales ['goods_id'], $v ['num'], sprintf ( "%01.2f", $sales ['price'] * $v ['num'] ) );
 
                 //给用户发送短信
-                if ($order_type == base_Constant::ORDER_TYPE_BOOK){
+                if ($order_type == base_Constant::ORDER_TYPE_BOOK && $third_verify_flag == 0){
                     $msg_content = "感谢订购".$v ['goods_name'].",您的验证码是".$sales ['verify_code'];
                     base_Utils::sendMsg($mobile,$msg_content);
                 }

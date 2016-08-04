@@ -53,14 +53,22 @@
                 订单状态：
                     {/if $modify_flag eq 0/}
                     <span>{/$order_status[$ext_detail.status]/}</span>
-                    {/else/}
+                    {/elseif $modify_flag eq 1/}
                 <select name="status">
                     <option value="-1">选择状态</option>
                     {/foreach from=$modify_status item=items key=k/}
                     <option value="{/$k/}" {/if $k eq $ext_detail.status/}selected="selected"{//if/}>{/$items/}</option>
                     {//foreach/}
                 </select>
-                <font class="red"> * </font>只有未支付的订单才能修改状态
+                <font class="red"> * </font>未支付的订单只能修改为已支付
+                    {/elseif $modify_flag eq 2/}
+                    <select name="status">
+                        <option value="-1">选择状态</option>
+                        {/foreach from=$modify_status_new item=items key=k/}
+                        <option value="{/$k/}" {/if $k eq $ext_detail.status/}selected="selected"{//if/}>{/$items/}</option>
+                        {//foreach/}
+                    </select>
+                    <font class="red"> * </font>已支付的订单只能修改为已完成
                     {//if/}
                 </p>
 
